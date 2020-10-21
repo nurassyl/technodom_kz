@@ -38,6 +38,25 @@ Install and configure tmux
 ./tmux_init.sh && source ~/.bashrc
 ```
 
+Create a swap space
+
+```bash
+# Show swap files
+sudo swapon --show
+
+# Remove swap file
+sudo swapoff --all # or sudo swapoff -v /swapfile
+
+# Create a swap file
+sudo dd if=/dev/zero of=/swapfile bs=1k count=2048k && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile
+
+# To keep swap file after reboot system add the following line '/swapfile none swap sw 0 0'
+sudo vim /etc/fstab
+
+# See stats of memory
+sudo free -h
+```
+
 ---
 
 Install NodeJS
@@ -245,27 +264,6 @@ sudo /bin/systemctl stop elasticsearch.service && sudo /bin/systemctl start elas
 cd /usr/share/elasticsearch
 sudo bin/elasticsearch-setup-passwords interactive # or 'auto' instead 'interactive'
 curl -X GET http://localhost:9200 # or curl --user elastic -X GET http://localhost:9200
-```
-
----
-
-Create a swap space
-
-```bash
-# Show swap files
-sudo swapon --show
-
-# Remove swap file
-sudo swapoff --all # or sudo swapoff -v /swapfile
-
-# Create a swap file
-sudo dd if=/dev/zero of=/swapfile bs=1k count=2048k && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile
-
-# To keep swap file after reboot system add the following line '/swapfile none swap sw 0 0'
-sudo vim /etc/fstab
-
-# See stats of memory
-sudo free -h
 ```
 
 ---
